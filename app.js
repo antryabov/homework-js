@@ -21,7 +21,7 @@ const find = array.find((el) => {
   return el.id === 1;
 });
 
-const map = array.map((el) => {
+array.map((el) => {
   if (find !== el) {
     set.add(el);
   }
