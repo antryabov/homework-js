@@ -1,30 +1,12 @@
 "use strict";
 
-const array = [
-  {
-    id: 1,
-    name: "Вася",
-  },
-  {
-    id: 2,
-    name: "Петя",
-  },
-  {
-    id: 1,
-    name: "Вася",
-  },
-];
+function rollTheDice(dice) {
+  let arrayDices = ["d4", "d6", "d8", "d10", "d12", "d14", "d16", "d20"];
+  const findDice = arrayDices.find((el) => el === dice);
 
-const set = new Set();
-
-const find = array.find((el) => {
-  return el.id === 1;
-});
-
-array.map((el) => {
-  if (find !== el) {
-    set.add(el);
+  if (findDice) {
+    const numDice = Number(findDice.replace("d", ""));
+    return Math.floor(Math.random() * (numDice - 1 + 1) + 1);
   }
-});
-
-console.log(set);
+  return null;
+}
