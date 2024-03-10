@@ -10,9 +10,7 @@ function validateAge(user) {
   const now = new Date();
   const age = now.getFullYear() - dateBirhday.getFullYear();
   console.log(age);
-  if (age > 14) {
-    return true;
-  }
+  if (age > 14) return true;
   if (age === 14) {
     if (dateBirhday.getMonth() >= now.getMonth()) {
       if (dateBirhday.getDate() >= now.getDate()) {
