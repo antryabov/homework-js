@@ -1,12 +1,18 @@
 "use strict";
 
 function rollTheDice(dice) {
-  let arrayDices = ["d4", "d6", "d8", "d10", "d12", "d14", "d16", "d20"];
-  const findDice = arrayDices.find((el) => el === dice);
+  const dices = {
+    d4: 4,
+    d6: 6,
+    d8: 8,
+    d10: 10,
+    d12: 12,
+    d16: 16,
+    d20: 20,
+  };
 
-  if (findDice) {
-    const numDice = Number(findDice.replace("d", ""));
-    return Math.floor(Math.random() * (numDice - 1 + 1) + 1);
+  if (dices[dice]) {
+    return Math.floor(Math.random() * (dices[dice] - 1 + 1) + 1);
   }
   return null;
 }
