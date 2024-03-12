@@ -1,12 +1,27 @@
 "use strict";
 
-function rollTheDice(dice) {
-  let arrayDices = ["d4", "d6", "d8", "d10", "d12", "d14", "d16", "d20"];
-  const findDice = arrayDices.find((el) => el === dice);
+const user = {
+  name: "Vasia",
+  birthday: "03/11/2010",
+};
 
-  if (findDice) {
-    const numDice = Number(findDice.replace("d", ""));
-    return Math.floor(Math.random() * (numDice - 1 + 1) + 1);
+const birthday = new Date(user.birthday);
+console.log(birthday); // Thu Mar 11 2010 00:00:00
+
+function validateAge(user) {
+  const dateBirhday = new Date(user.birthday);
+  const now = new Date();
+  const age = now.getFullYear() - dateBirhday.getFullYear();
+  if (age > 14) return true;
+  if (age === 14) {
+    if (
+      now.getMonth() - dateBirhday.getMonth() < 0 ||
+      (now.getMonth() - dateBirhday.getMonth() === 0 &&
+        now.getDate() - dateBirhday.getDate() <= 0)
+    )
+      return true;
   }
-  return null;
+  return false;
 }
+
+console.log(validateAge(user));
