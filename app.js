@@ -16,15 +16,14 @@ const array = [
 ];
 
 function deleteDiplicate(array) {
-  const set = new Set();
   let newArray = [];
 
   array.map((el) => {
-    if (!set.has(el.id)) {
-      set.add(el.id);
+    if (!newArray.find((item) => item.id === el.id)) {
       newArray.push(el);
     }
   });
+
   return newArray;
 }
 
