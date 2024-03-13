@@ -2,11 +2,8 @@
 
 const user = {
   name: "Vasia",
-  birthday: "03/11/2010",
+  birthday: "02/11/2010", // 2 february 2010
 };
-
-const birthday = new Date(user.birthday);
-console.log(birthday); // Thu Mar 11 2010 00:00:00
 
 function validateAge(user) {
   const dateBirhday = new Date(user.birthday);
@@ -15,9 +12,9 @@ function validateAge(user) {
   if (age > 14) return true;
   if (age === 14) {
     if (
-      now.getMonth() - dateBirhday.getMonth() < 0 ||
+      now.getMonth() - dateBirhday.getMonth() > 0 ||
       (now.getMonth() - dateBirhday.getMonth() === 0 &&
-        now.getDate() - dateBirhday.getDate() <= 0)
+        now.getDate() - dateBirhday.getDate() >= 0)
     )
       return true;
   }
