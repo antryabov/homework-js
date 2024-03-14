@@ -1,18 +1,19 @@
 "use strict";
 
-function rollTheDice(dice) {
-  const dices = {
-    d4: 4,
-    d6: 6,
-    d8: 8,
-    d10: 10,
-    d12: 12,
-    d16: 16,
-    d20: 20,
-  };
+const user = {
+  name: "Vasia",
+  birthday: "02/11/2010", // 2 february 2010
+};
 
-  if (dices[dice]) {
-    return Math.floor(Math.random() * (dices[dice] - 1 + 1) + 1);
-  }
-  return null;
-}
+function validateAge(user) {
+  const dateBirhday = new Date(user.birthday);
+  const now = new Date();
+  const age = now.getFullYear() - dateBirhday.getFullYear();
+  if (age > 14) return true;
+  if (age === 14) {
+    if (
+      now.getMonth() - dateBirhday.getMonth() > 0 ||
+      (now.getMonth() - dateBirhday.getMonth() === 0 &&
+        now.getDate() - dateBirhday.getDate() >= 0)
+    )
+      return true;
