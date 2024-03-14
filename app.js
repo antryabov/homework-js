@@ -17,8 +17,3 @@ function validateAge(user) {
         now.getDate() - dateBirhday.getDate() >= 0)
     )
       return true;
-  }
-  return false;
-}
-
-console.log(validateAge(user));
