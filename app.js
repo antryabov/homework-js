@@ -16,7 +16,7 @@ function isNewYear() {
 
   setTimeout(() => {
     clearInterval(interval);
-  }, new Date(2025, 0, 1).getTime());
+  }, end);
 }
 
 isNewYear();
