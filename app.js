@@ -1,22 +1,33 @@
 "use strict";
 
-const timer = document.querySelector(".timer");
+const CartOfGoods = function () {
+  this.goods = [];
+  this.count = null;
+};
 
-function isNewYear() {
-  const end = new Date(2025, 0, 1, 0, 0, 0).getTime();
-  const interval = setInterval(() => {
-    const untilTheNY = new Date(end - new Date() - 10800000);
-    let month = untilTheNY.getMonth();
-    let days = untilTheNY.getDate();
-    let hour = untilTheNY.getHours();
-    let minute = untilTheNY.getMinutes();
-    let seconds = untilTheNY.getSeconds();
-    timer.innerHTML = `${month} месяцев ${days} дней ${hour} часов ${minute} минут ${seconds} секунд`;
-  }, 1000);
+// Доделать правильное обновление id после удаления
+CartOfGoods.prototype.addGoods = function (name) {
+  this.goods.push({
+    id: this.goods.length + 1,
+    name: name,
+  });
+  this.count = this.goods.length;
+};
 
-  setTimeout(() => {
-    clearInterval(interval);
-  }, end);
-}
+CartOfGoods.prototype.deleteGood = function (name) {
+  const good = this.goods.find((good) => good.name === name);
+  if (good) {
+    this.goods.splice(good.id - 1, 1);
 
-isNewYear();
+    this.count = this.goods.length;
+  }
+  if (this.goods.length === 0) {
+    this.goods = [];
+  }
+};
+
+const cart = new CartOfGoods();
+cart.addGoods("Bear");
+cart.addGoods("Chips");
+cart.deleteGood("Bear");
+console.log(cart);
