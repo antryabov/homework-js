@@ -1,33 +1,58 @@
 "use strict";
 
-const CartOfGoods = function () {
-  this.goods = [];
-  this.count = null;
+// персонаж
+const Character = function (race, name, language) {
+  this.race = race;
+  this.name = name;
+  this.language = language;
 };
 
-// Доделать правильное обновление id после удаления
-CartOfGoods.prototype.addGoods = function (name) {
-  this.goods.push({
-    id: this.goods.length + 1,
-    name: name,
-  });
-  this.count = this.goods.length;
+Character.prototype.talking = function () {
+  console.log(`${this.name} - ${this.language}`);
 };
 
-CartOfGoods.prototype.deleteGood = function (name) {
-  const good = this.goods.find((good) => good.name === name);
-  if (good) {
-    this.goods.splice(good.id - 1, 1);
+// орк
+const Orc = function (race, name, language, weapon) {
+  Character.call(this, race, name, language);
+  this.weapon = weapon;
+};
+Orc.prototype = Object.create(Character.prototype);
+Orc.prototype.constructor = Orc;
 
-    this.count = this.goods.length;
-  }
-  if (this.goods.length === 0) {
-    this.goods = [];
-  }
+Orc.prototype.hit = function () {
+  console.log(`${this.name} наносит [Кровожадный удар]!`);
 };
 
-const cart = new CartOfGoods();
-cart.addGoods("Bear");
-cart.addGoods("Chips");
-cart.deleteGood("Bear");
-console.log(cart);
+// эльф
+const Elf = function (race, name, language) {
+  Character.call(this, race, name, language);
+  this.spells = [];
+};
+Elf.prototype = Object.create(Character.prototype);
+Elf.prototype.constructor = Elf;
+
+Elf.prototype.createSpell = function (name) {
+  this.spells.push(name);
+};
+
+Elf.prototype.castSpell = function () {
+  const random = Math.floor(Math.random() * (this.spells.length - 1));
+  console.log(random);
+  console.log(`${this.name} применяет заклинание [${this.spells[random]}]!`);
+};
+
+// создание орка
+const orc = new Orc("Orc", "Garrosh", "Orcish", "Axe");
+orc.talking();
+orc.hit();
+console.log(orc);
+
+// создание эльфа
+const elf = new Elf("Elf", "Kel'Talas", "Elvish");
+elf.talking();
+elf.createSpell("Огненный шар");
+elf.createSpell("Огненный щит");
+elf.createSpell("Огненный меч");
+elf.createSpell("Огненный луч");
+elf.castSpell();
+console.log(elf);
