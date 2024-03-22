@@ -1,58 +1,31 @@
 "use strict";
 
-// персонаж
-const Character = function (race, name, language) {
-  this.race = race;
-  this.name = name;
-  this.language = language;
-};
+class Car {
+  #make;
+  #model;
+  #run;
 
-Character.prototype.talking = function () {
-  console.log(`${this.name} - ${this.language}`);
-};
+  constructor(make, model, run) {
+    this.#make = make;
+    this.#model = model;
+    this.#run = Number(run);
+  }
 
-// орк
-const Orc = function (race, name, language, weapon) {
-  Character.call(this, race, name, language);
-  this.weapon = weapon;
-};
-Orc.prototype = Object.create(Character.prototype);
-Orc.prototype.constructor = Orc;
+  set setRun(run) {
+    this.#run += run;
+  }
 
-Orc.prototype.hit = function () {
-  console.log(`${this.name} наносит [Кровожадный удар]!`);
-};
+  get getRun() {
+    return `Пробег - ${this.#run}`;
+  }
 
-// эльф
-const Elf = function (race, name, language) {
-  Character.call(this, race, name, language);
-  this.spells = [];
-};
-Elf.prototype = Object.create(Character.prototype);
-Elf.prototype.constructor = Elf;
+  info() {
+    return `${this.#make} - ${this.#model}. Пробег - ${this.#run}`;
+  }
+}
 
-Elf.prototype.createSpell = function (name) {
-  this.spells.push(name);
-};
-
-Elf.prototype.castSpell = function () {
-  const random = Math.floor(Math.random() * (this.spells.length - 1));
-  console.log(random);
-  console.log(`${this.name} применяет заклинание [${this.spells[random]}]!`);
-};
-
-// создание орка
-const orc = new Orc("Orc", "Garrosh", "Orcish", "Axe");
-orc.talking();
-orc.hit();
-console.log(orc);
-
-// создание эльфа
-const elf = new Elf("Elf", "Kel'Talas", "Elvish");
-elf.talking();
-elf.createSpell("Огненный шар");
-elf.createSpell("Огненный щит");
-elf.createSpell("Огненный меч");
-elf.createSpell("Огненный луч");
-elf.castSpell();
-console.log(elf);
+const kia = new Car("KIA", "Seltos", "55000");
+console.log(kia.info());
+kia.setRun = 100;
+console.log(kia.getRun);
+console.log(kia);
