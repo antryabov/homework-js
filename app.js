@@ -1,45 +1,50 @@
 "use strict";
 
-// персонаж
-const Character = function (race, name, language) {
-  this.race = race;
-  this.name = name;
-  this.language = language;
-};
+class Character {
+  constructor(race, name, language) {
+    this.race = race;
+    this.name = name;
+    this.language = language;
+  }
 
-Character.prototype.talking = function () {
-  console.log(`${this.name} - ${this.language}`);
-};
+  talking() {
+    console.log(`${this.name} - ${this.language}`);
+  }
+}
 
-// орк
-const Orc = function (race, name, language, weapon) {
-  Character.call(this, race, name, language);
-  this.weapon = weapon;
-};
-Orc.prototype = Object.create(Character.prototype);
-Orc.prototype.constructor = Orc;
+class Orc extends Character {
+  constructor(race, name, language, weapon) {
+    super(race, name, language);
+    this.weapon = weapon;
+  }
+  hit() {
+    console.log(`${this.name} наносит [Кровожадный удар]!`);
+  }
 
-Orc.prototype.hit = function () {
-  console.log(`${this.name} наносит [Кровожадный удар]!`);
-};
+  talking() {
+    console.log(
+      `${this.name} - ${this.language}: Заг - Заг! Я сын Орды! Мое оружие [${this.weapon}]!`
+    );
+  }
+}
 
-// эльф
-const Elf = function (race, name, language) {
-  Character.call(this, race, name, language);
-  this.spells = [];
-};
-Elf.prototype = Object.create(Character.prototype);
-Elf.prototype.constructor = Elf;
+class Elf extends Character {
+  spells = [];
+  constructor(race, name, language) {
+    super(race, name, language);
+  }
+  createSpell(name) {
+    this.spells.push(name);
+  }
+  castSpell() {
+    const random = Math.floor(Math.random() * (this.spells.length - 1));
+    console.log(`${this.name} применяет заклинание [${this.spells[random]}]!`);
+  }
 
-Elf.prototype.createSpell = function (name) {
-  this.spells.push(name);
-};
-
-Elf.prototype.castSpell = function () {
-  const random = Math.floor(Math.random() * (this.spells.length - 1));
-  console.log(random);
-  console.log(`${this.name} применяет заклинание [${this.spells[random]}]!`);
-};
+  talking() {
+    console.log(`${this.name} - ${this.language}: Анар-Ала! За Орду!`);
+  }
+}
 
 // создание орка
 const orc = new Orc("Orc", "Garrosh", "Orcish", "Axe");
