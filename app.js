@@ -1,63 +1,39 @@
 "use strict";
 
-class Character {
-  constructor(race, name, language) {
-    this.race = race;
-    this.name = name;
-    this.language = language;
+class Billing {
+  amount;
+  constructor(amount) {
+    this.amount = amount;
   }
-
-  talking() {
-    console.log(`${this.name} - ${this.language}`);
+  calculateTotal() {
+    return this.amount;
   }
 }
 
-class Orc extends Character {
-  constructor(race, name, language, weapon) {
-    super(race, name, language);
-    this.weapon = weapon;
-  }
-  hit() {
-    console.log(`${this.name} наносит [Кровожадный удар]!`);
-  }
+class FixBilling extends Billing {
+  amount;
+}
 
-  talking() {
-    console.log(
-      `${this.name} - ${this.language}: Заг - Заг! Я сын Орды! Мое оружие [${this.weapon}]!`
-    );
+class HourBilling extends Billing {
+  amount;
+  hour;
+  constructor(amount, hour) {
+    super(amount);
+    this.hour = hour;
+  }
+  calculateTotal() {
+    return this.amount * this.hour;
   }
 }
 
-class Elf extends Character {
-  spells = [];
-  constructor(race, name, language) {
-    super(race, name, language);
+class itemBilling extends Billing {
+  amount;
+  item;
+  constructor(amount, item) {
+    super(amount);
+    this.item = item;
   }
-  createSpell(name) {
-    this.spells.push(name);
-  }
-  castSpell() {
-    const random = Math.floor(Math.random() * (this.spells.length - 1));
-    console.log(`${this.name} применяет заклинание [${this.spells[random]}]!`);
-  }
-
-  talking() {
-    console.log(`${this.name} - ${this.language}: Анар-Ала! За Орду!`);
+  calculateTotal() {
+    return this.amount * this.item;
   }
 }
-
-// создание орка
-const orc = new Orc("Orc", "Garrosh", "Orcish", "Axe");
-orc.talking();
-orc.hit();
-console.log(orc);
-
-// создание эльфа
-const elf = new Elf("Elf", "Kel'Talas", "Elvish");
-elf.talking();
-elf.createSpell("Огненный шар");
-elf.createSpell("Огненный щит");
-elf.createSpell("Огненный меч");
-elf.createSpell("Огненный луч");
-elf.castSpell();
-console.log(elf);
